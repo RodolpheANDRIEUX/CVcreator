@@ -1,0 +1,187 @@
+#backgroundImg {
+    background-image: url("https://cdn.discordapp.com/attachments/1198215319026675822/1200738005904789534/tiltedriven_The_architecture_of_modern_interior_design_629c925f-20c9-41c6-a3a8-40e898ba4346.webp?ex=65c74569&is=65b4d069&hm=1a24bcbd3f0f59a23359305bcc296107b69e7e7c3c83e65914c897dd73747915&");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 150vh;
+    width: 100%;
+    position: absolute;
+    top: -50vh;
+    z-index: -1;
+
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #DEB472;
+}
+
+.logo img {
+    height: 45px;
+}
+
+.nav-bar ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-bar ul li {
+    list-style: none;
+    padding: 0 25px;
+    font: 18px 'Roboto', sans-serif;
+    font-weight: 600;
+    color: #231711;
+    transition: .3s;
+}
+
+.nav-bar ul li:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.connexion-btn {
+    background-color: #231711;
+    border: 2px solid #231711;
+    border-radius: 1px;
+    padding: 6px 25px;
+    font: 20px 'Roboto', sans-serif;
+    font-weight: 600;
+    color: #F2E2C2;
+    transition: .3s;
+}
+
+.connexion-btn:hover {
+    background-color: #DEB472;
+    color: #231711;
+    cursor: pointer;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 600px;
+    background: linear-gradient(to bottom right, #231711, transparent, transparent);
+    margin: 90px 0 0 70px;
+    padding: 20px;
+}
+
+.title-container h2 {
+    font-family: 'playfair display', sans-serif;
+    text-shadow: 0 2px 5px #231711;
+    font-size: 40px;
+    color: #F2E2C2;
+    margin-bottom: 20px;
+}
+
+.title-container p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    line-height: 20px;
+    color: #F2E2C2;
+    text-shadow: 0 2px 5px #231711;
+    z-index: 9999999999999999; /* It doesn't even work */
+}
+
+.title-container button {
+    position: relative;
+    background-color: #DEB472;
+    border: none;
+    border-radius: 24px;
+    padding: 7px 30px 7px 0;
+    width: 230px;
+    font: 25px 'playfair display', sans-serif;
+    font-weight: 600;
+    color: #000;
+    transition: .3s;
+    margin: 50px 0 0 150px;
+}
+
+.title-container button img {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    height: 23px;
+}
+
+.title-container button:hover {
+    padding: 7px 0 7px 0;
+    cursor: pointer;
+}
+
+.title-container button:hover img {
+    display: none; /* j'avais pas envie de me faire chier */
+}
+
+.dummy-cv {
+    height: 475px;
+    position: absolute;
+    top: 22vh;
+    left: 38%;
+    z-index: 0;
+}
+
+.women-cv {
+    mix-blend-mode: lighten;
+    height: 500px;
+    position: absolute;
+    top: 19vh;
+    left: 51%;
+    z-index: 0;
+    transition: .4s ease-in-out;
+}
+
+.women-cv-mask {
+    opacity: .3;
+    height: 500px;
+    position: absolute;
+    top: 19vh;
+    left: 51%;
+    z-index: 0;
+    transition: .4s ease-in-out;
+}
+
+.women-cv-container:hover .women-cv {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.women-cv-container:hover .women-cv-mask {
+    transform: scale(1.1) rotate(-5deg);
+    opacity: .9;
+    cursor: pointer;
+}
+
+.arrow {
+    height: 130px;
+    position: absolute;
+    top: 100px;
+    right: 80px;
+}
+
+.container1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 275px auto;
+    padding: 0 200px;
+}
+
+.container1 .line {
+    height: 100px;
+    width: 1px;
+    margin: 0 50px;
+    background-color: #231711;
+}
+
+.container1 p {
+    font-family: 'playfair display', sans-serif;
+    font-weight: 501;
+    letter-spacing: 1px;
+    font-size: 28px;
+    color: #231711;
+    text-align: center;
+}
