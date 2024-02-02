@@ -1,0 +1,60 @@
+#backgroundImg {
+    background-image: url("https://cdn.discordapp.com/attachments/1198215319026675822/1200738005904789534/tiltedriven_The_architecture_of_modern_interior_design_629c925f-20c9-41c6-a3a8-40e898ba4346.webp?ex=65c74569&is=65b4d069&hm=1a24bcbd3f0f59a23359305bcc296107b69e7e7c3c83e65914c897dd73747915&");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 150vh;
+    width: 100%;
+    position: absolute;
+    top: -50vh;
+    z-index: -1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #DEB472;
+}
+
+.logo img {
+    height: 45px;
+}
+
+.nav-bar ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-bar ul li {
+    list-style: none;
+    padding: 0 25px;
+    font: 18px 'Roboto', sans-serif;
+    font-weight: 600;
+    color: #231711;
+    transition: .3s;
+}
+
+.nav-bar ul li:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.connexion-btn, .profile-btn {
+    background-color: #231711;
+    border: 2px solid #231711;
+    border-radius: 1px;
+    padding: 6px 25px;
+    font: 20px 'Roboto', sans-serif;
+    font-weight: 600;
+    color: #F2E2C2;
+    transition: .3s;
+}
+
+.connexion-btn:hover, .profile-btn {
+    background-color: #DEB472;
+    color: #231711;
+    cursor: pointer;
+}

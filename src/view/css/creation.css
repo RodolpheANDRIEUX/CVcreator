@@ -1,0 +1,44 @@
+.container {
+    position: relative;
+}
+
+#header-line {
+    position: absolute;
+    background-color: #231711;
+    height: 1px;
+    width: 75%;
+    top: 0;
+    right: 0;
+    z-index: 11;
+}
+
+.forms-container {
+    position: fixed;
+    width: 50vw;
+    height: 100%;
+    background-color: #DEB472;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#backgroundImg {
+    position: fixed !important;
+}
+
+.preview-container {
+    position: fixed;
+    right: 25vw;
+    top: calc(50vh + 60px);
+    transform: translate(50%, -50%);
+    height: calc(100vh - 70px);
+    width: 49vw;
+}
+
+.cv-container {
+    aspect-ratio: 21/29;
+    margin: auto;
+    height: 90%;
+    background-color: #F2E2C2;
+    box-shadow: #231711 0 0 10px 1px;
+}
+

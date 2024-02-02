@@ -6,6 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 70vh;
     width: 100%;
 }
@@ -15,4 +16,21 @@ body {
     font-weight: bold;
     color: #F2E2C2;
     text-shadow: 4px 4px 0px #000;
+}
+
+button {
+    background-color: #231711;
+    color: #F2E2C2;
+    border: 1px solid #F2E2C2;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #F2E2C2;
+    color: #231711;
 }

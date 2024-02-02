@@ -1,5 +1,7 @@
 <?php
 
+namespace controller;
+
 use models\UserModel;
 
 require_once __DIR__ . '/../models/UserModel.php';

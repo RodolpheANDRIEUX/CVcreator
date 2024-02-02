@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CVcreator</title>
-    <link rel="icon" type="image/x-icon" href="view/assets/CV.png">
-    <link rel="stylesheet" type="text/css" href="view/css/style.css">
+    <?php include 'view/head.php'; ?>
     <link rel="stylesheet" type="text/css" href="view/css/404.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <!-- Cette page c'est juste pour débug et m'assurer que j'aille pas sur home un peu par default -->
+
 </head>
+
+
 <body>
 <?php include 'view/header.php'; ?>
 
 <div class="container">
     <span class="error">404</span>
+    <button type="submit" class="back-btn"><a href="?page=home">Go back to home...</a></button>
 </div>
 
 </body>
+</html>

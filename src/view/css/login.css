@@ -2,18 +2,21 @@ body {
     background-color: #231711 !important;
 }
 
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
 .container {
     border-radius: 30px;
     background-color: #F2E2C2;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    padding: 80px 20px;
+    padding: 10vh 2vw 15vh 2vw;
 }
 
 .forms-container {
@@ -28,7 +31,6 @@ body {
     flex-direction: column;
     width: 100%;
     margin: 30px 50px 0 50px;
-    padding-bottom: 90px;
 }
 
 .separator {
@@ -61,6 +63,7 @@ input {
     color: #231711;
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 form button {
@@ -75,5 +78,5 @@ form button {
     font-weight: bold;
     cursor: pointer;
     position: absolute;
-    bottom: 0;
+    bottom: -50px;
 }

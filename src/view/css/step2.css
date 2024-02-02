@@ -1,0 +1,45 @@
+.progress-bar-container {
+    max-width: 100%;
+    padding: 50px 0 50px 20%;
+}
+
+.progress-bar-container h2 {
+    color: #231711;
+    font-size: 30px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.progress-bar {
+    position: relative;
+    max-width: 80%;
+    height: 1px;
+    background-color: #816642;
+}
+
+.progress-bar span {
+    position: absolute;
+    top: -5px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #816642;
+}
+
+.progress-bar span:nth-child(1) {
+    left: -5px;
+}
+
+.progress-bar span:nth-child(2) {
+    left: 33.3%;
+    background-color: #231711;
+    transform: scale(1.2);
+}
+
+.progress-bar span:nth-child(3) {
+    left: 66.7%;
+}
+
+.progress-bar span:nth-child(4) {
+    right: -5px;
+}

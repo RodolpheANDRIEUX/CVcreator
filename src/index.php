@@ -1,4 +1,7 @@
 <?php
+
+use controller\UserController;
+
 session_start();
 require_once 'controller/UserController.php';
 $userController = new UserController();
