@@ -4,6 +4,7 @@
     <?php include 'view/head.php'; ?></head>
     <link rel="stylesheet" type="text/css" href="view/css/creation.css">
 </head>
+
 <body>
 <?php include 'view/header.php'; ?>
 

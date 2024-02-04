@@ -15,7 +15,6 @@ class UserModel
     }
 
     public function addUser($username, $email, $password) {
-        // TODO: Hasher le mot de passe avant de l'ajouter à la base de données
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $db = Database::getInstance();
@@ -30,4 +29,17 @@ class UserModel
         return $stmt->fetch();
     }
 
+    public function updateUser($id, $username, $email, $password) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $db = Database::getInstance();
+        $stmt = $db->prepare("UPDATE user SET username = ?, email = ?, password = ? WHERE id = ?");
+        $stmt->execute([$username, $email, $hashedPassword, $id]);
+    }
+
+    public function deleteUser($id) {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("DELETE FROM user WHERE id = ?");
+        $stmt->execute([$id]);
+    }
 }

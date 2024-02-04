@@ -16,7 +16,7 @@
             <?php endif; ?>
             <li><a href="?page=premium">Premium</a></li>
             <li><a href="https://github.com/RodolpheANDRIEUX">Suivez-nous</a></li>
-            <li><a href="https://github.com/RodolpheANDRIEUX/CVcreator/commit/main">A propos</a></li>
+            <li><a href="https://github.com/RodolpheANDRIEUX/CVcreator/commits/main/">A propos</a></li>
         </ul>
     </div>
     <div>

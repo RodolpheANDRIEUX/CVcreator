@@ -123,3 +123,24 @@
     color: #231711;
     text-align: center;
 }
+
+.mcd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 100px auto;
+    padding: 0 200px;
+}
+
+.mcd img {
+    width: 80%;
+    margin: auto;
+}
+
+.container2 h2 {
+    font-family: 'playfair display', sans-serif;
+    font-size: 40px;
+    color: #231711;
+    text-align: center;
+    margin: 100px 0 50px 0;
+}

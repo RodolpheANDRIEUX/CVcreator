@@ -3,7 +3,8 @@
 use controller\UserController;
 
 session_start();
-require_once 'controller/UserController.php';
+require_once __DIR__ . '/controller/UserController.php';
+
 $userController = new UserController();
 
 $page = isset($_GET['page']) ? $_GET['page'] : ' ';

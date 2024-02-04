@@ -9,13 +9,20 @@ class Database
 {
     private static $instance = null;
     private $pdo,
-        $host = 'localhost',
-        $user = 'root',
-        $pass = '',
-        $dbname = 'cv_creator_db';
+        $host,
+        $user,
+        $pass,
+        $dbname;
 
     private function __construct()
     {
+        require_once __DIR__ . '/db_config.php';
+
+        $this->host = DB_HOST;
+        $this->user = DB_USER;
+        $this->pass = DB_PASS;
+        $this->dbname = DB_NAME;
+
         try {
             $this->pdo = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->user, $this->pass);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

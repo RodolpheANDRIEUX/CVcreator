@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include 'view/head.php'; ?></head>
+    <?php
+    include 'view/head.php';
+    require_once '../src/data/init_check.php';
+    ?>
     <link rel="stylesheet" type="text/css" href="view/css/login.css">
 </head>
+
 <body>
 <?php include 'view/header.php'; ?>
 

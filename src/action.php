@@ -3,6 +3,9 @@ session_start();
 
 use controller\UserController;
 require_once __DIR__ . '/controller/UserController.php';
+require_once __DIR__ . '/logger.php';
+
+$logger = new Logger();
 $userController = new UserController();
 
 

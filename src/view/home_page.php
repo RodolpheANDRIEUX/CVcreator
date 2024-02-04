@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include 'view/head.php'; ?></head>
-<link rel="stylesheet" type="text/css" href="view/css/home.css">
+    <?php include 'view/head.php'; ?>
+    <link rel="stylesheet" type="text/css" href="view/css/home.css">
+</head>
+
 <body>
 <div id="backgroundImg"></div>
 <?php include 'view/header.php'; ?>
@@ -27,6 +29,13 @@
     <p>Choisissez un modèle de CV</p>
     <div class="line"></div>
     <p>Télechargez votre nouveaux CV</p>
+</section>
+
+<section class="container2">
+    <h2>Modèle conceptuel des données ( MCD )</h2>
+    <div class="mcd">
+        <img src="view/assets/MCD.svg" alt="MCD">
+    </div>
 </section>
 </body>
 </html>

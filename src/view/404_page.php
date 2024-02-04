@@ -5,9 +5,7 @@
     <link rel="stylesheet" type="text/css" href="view/css/404.css">
 
     <!-- Cette page c'est juste pour débug et m'assurer que j'aille pas sur home un peu par default -->
-
 </head>
-
 
 <body>
 <?php include 'view/header.php'; ?>

@@ -8,10 +8,10 @@ require_once __DIR__ . '/../data/Database.php';
 
 class License
 {
-    public function createLicense($type, $cvContentId) {
+    public function createLicense($type, $name) {
         $db = Database::getInstance();
-        $stmt = $db->prepare("INSERT INTO License (type, cv_content_id) VALUES (?, ?)");
-        $stmt->execute([$type, $cvContentId]);
+        $stmt = $db->prepare("INSERT INTO License (type, name) VALUES (?, ?)");
+        $stmt->execute([$type, $name]);
     }
 
     public function getLicenseById($licenseId) {
@@ -21,10 +21,10 @@ class License
         return $stmt->fetchAll();
     }
 
-    public function updateLicense($licenseId, $type, $cvContentId) {
+    public function updateLicense($licenseId, $type, $name) {
         $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE License SET type = ?, cv_content_id = ? WHERE id = ?");
-        $stmt->execute([$type, $cvContentId, $licenseId]);
+        $stmt = $db->prepare("UPDATE License SET type = ?, name = ? WHERE id = ?");
+        $stmt->execute([$type, $name, $licenseId]);
     }
 
     public function deleteLicense($licenseId) {
