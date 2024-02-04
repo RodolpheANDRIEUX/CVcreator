@@ -4,10 +4,13 @@ use controller\UserController;
 
 session_start();
 require_once __DIR__ . '/controller/UserController.php';
+require_once __DIR__ . '/logger.php';
 
 $userController = new UserController();
+$logger = new Logger();
 
-$page = isset($_GET['page']) ? $_GET['page'] : ' ';
+$page = $_GET['page'] ?? ' ';
+$logger->log( ($_SESSION['username'] ?? 'Guest') . " accessed page $page");
 
 try {
     switch ($page) {
@@ -23,6 +26,9 @@ try {
                 exit();
             }
             include 'view/creation_page.php';
+            break;
+        case 'error':
+            include 'view/error_page.php';
             break;
         default:
             include 'view/404_page.php';

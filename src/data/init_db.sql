@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS CV_content (
     last_name VARCHAR(255) NOT NULL,
     birth_date DATE,
     profile_pic VARCHAR(255),
+    address VARCHAR(255),
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
     cv_id INT,

@@ -17,9 +17,9 @@ class CvController {
     /**
      * @throws Exception for each validation error
      */
-    public function addCv($title, $thumbnail, $template_path, $userId) {
-        if (empty($title) || empty($thumbnail) || empty($template_path) || empty($userId)) {
-            throw new Exception("All fields are required.");
+    public function addCv($title, $userId, $thumbnail = null, $template_path = null) {
+        if (empty($title) || empty($userId)) {
+            throw new Exception("title and user ID are required.");
         }
 
         $this->cvModel->createCv($title, $thumbnail, $template_path, $userId);
@@ -39,7 +39,7 @@ class CvController {
     /**
      * @throws Exception if id or title is empty
      */
-    public function updateCv($cvId, $title, $thumbnail, $template_path) {
+    public function updateCv($title, $userId, $thumbnail = null, $template_path = null) {
         if (empty($cvId) || empty($title)) {
             throw new Exception("A title is required.");
         }

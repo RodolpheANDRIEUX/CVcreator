@@ -2,14 +2,19 @@
 
 require_once __DIR__ . '/../models/Color.php';
 require_once __DIR__ . '/../models/License.php';
+require_once __DIR__ . '/../models/UserModel.php';
 require_once __DIR__ . '/../Logger.php';
 $logger = new Logger();
 
 use models\Color;
 use models\License;
+use models\UserModel;
 
 $color = new Color();
 $license = new License();
+$user = new UserModel();
+
+$user->addUser('admin', 'admin', '12341234');
 
 $color->createColor('Red', '#FF0000', '#8B0000', '#B22222', '#DC143C');
 $color->createColor('Green', '#008000', '#006400', '#228B22', '#2E8B57');
