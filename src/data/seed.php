@@ -1,14 +1,14 @@
 <?php
 
-require_once __DIR__ . '/../models/Color.php';
-require_once __DIR__ . '/../models/License.php';
-require_once __DIR__ . '/../models/UserModel.php';
+require_once __DIR__ . '/../model/Color.php';
+require_once __DIR__ . '/../model/License.php';
+require_once __DIR__ . '/../model/UserModel.php';
 require_once __DIR__ . '/../Logger.php';
 $logger = new Logger();
 
-use models\Color;
-use models\License;
-use models\UserModel;
+use model\Color;
+use model\License;
+use model\UserModel;
 
 $color = new Color();
 $license = new License();

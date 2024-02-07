@@ -3,9 +3,9 @@
 namespace controller;
 
 use Exception;
-use models\LicenseLinkTable;
+use model\LicenseLinkTable;
 
-require_once __DIR__ . '/../models/LicenseLinkTable.php';
+require_once __DIR__ . '/../model/LicenseLinkTable.php';
 
 class LicenseLinkTableController {
     private $licenseLinkTableModel;

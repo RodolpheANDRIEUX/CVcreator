@@ -3,9 +3,9 @@
 namespace controller;
 
 use Exception;
-use models\Education;
+use model\Education;
 
-require_once __DIR__ . '/../models/Education.php';
+require_once __DIR__ . '/../model/Education.php';
 
 class EducationController {
     private $educationModel;
@@ -18,8 +18,8 @@ class EducationController {
      * @throws Exception for each validation error
      */
     public function addEducation($title, $description, $cvContentId) {
-        if (empty($title) || empty($description) || empty($cvContentId)) {
-            throw new Exception("Title, description and CV content ID are required.");
+        if (empty($title) || empty($cvContentId)) {
+            throw new Exception("Title and CV content ID are required.");
         }
 
         $this->educationModel->createEducation($title, $description, $cvContentId);

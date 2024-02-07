@@ -3,9 +3,9 @@
 namespace controller;
 
 use Exception;
-use models\Cv;
+use model\Cv;
 
-require_once __DIR__ . '/../models/Cv.php';
+require_once __DIR__ . '/../model/Cv.php';
 
 class CvController {
     private $cvModel;
@@ -22,7 +22,7 @@ class CvController {
             throw new Exception("title and user ID are required.");
         }
 
-        $this->cvModel->createCv($title, $thumbnail, $template_path, $userId);
+        return $this->cvModel->createCv($title, $thumbnail, $template_path, $userId);
     }
 
     /**
@@ -34,6 +34,17 @@ class CvController {
         }
 
         return $this->cvModel->getCvByUserId($userId);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getCvById($cvId) {
+        if (empty($cvId)) {
+            throw new Exception("CV ID is required.");
+        }
+
+        return $this->cvModel->getCvById($cvId);
     }
 
     /**

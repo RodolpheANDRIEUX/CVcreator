@@ -3,9 +3,9 @@
 namespace controller;
 
 use Exception;
-use models\CvContent;
+use model\CvContent;
 
-require_once __DIR__ . '/../models/CvContent.php';
+require_once __DIR__ . '/../model/CvContent.php';
 
 class CvContentController {
     private $cvContentModel;
@@ -24,7 +24,7 @@ class CvContentController {
 
         $birthDate = ($birthDate != '') ? $birthDate : null;
 
-        $this->cvContentModel->createCvContent($firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId, $colorId);
+        return $this->cvContentModel->createCvContent($firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId, $colorId);
     }
 
     /**
@@ -39,16 +39,27 @@ class CvContentController {
     }
 
     /**
+     * @throws Exception
+     */
+    public function getCvContentByCvId($cvId) {
+        if (empty($cvId)) {
+            throw new Exception("CV ID is required.");
+        }
+
+        return $this->cvContentModel->getCvContentByCvId($cvId);
+    }
+
+    /**
      * @throws Exception if id or first name or last name or email is empty
      */
     public function updateCvContent($firstName, $lastName, $email, $cvId, $birthDate, $profilePic = null, $address = null, $phone = null, $colorId = null) {
-        if (empty($id) || empty($firstName) || empty($lastName) || empty($email)) {
+        if (empty($cvId) || empty($firstName) || empty($lastName) || empty($email)) {
             throw new Exception("ID, first name, last name and email are required.");
         }
 
         $birthDate = ($birthDate != '') ? $birthDate : null;
 
-        $this->cvContentModel->updateCvContent($id, $firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId, $colorId);
+        $this->cvContentModel->updateCvContent($cvId, $firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId, $colorId);
     }
 
     /**
@@ -60,5 +71,17 @@ class CvContentController {
         }
 
         $this->cvContentModel->deleteCvContent($id);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function deleteCvContentByCvId($cv_id)
+    {
+        if (empty($cv_id)) {
+            throw new Exception("CV ID is required.");
+        }
+
+        $this->cvContentModel->deleteCvContentByCvId($cv_id);
     }
 }

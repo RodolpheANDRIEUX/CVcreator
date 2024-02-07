@@ -3,9 +3,9 @@
 namespace controller;
 
 use Exception;
-use models\Language;
+use model\Language;
 
-require_once __DIR__ . '/../models/Language.php';
+require_once __DIR__ . '/../model/Language.php';
 
 class LanguageController {
     private $languageModel;
@@ -19,7 +19,7 @@ class LanguageController {
      */
     public function addLanguage($name, $level, $cvContentId) {
         if (empty($name) || empty($level) || empty($cvContentId)) {
-            throw new Exception("Name, level and CV content ID are required.");
+            throw new Exception("Name and level are required.");
         }
 
         $this->languageModel->createLanguage($name, $level, $cvContentId);

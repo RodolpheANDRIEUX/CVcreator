@@ -1,0 +1,20 @@
+.cv-container * {
+    background: #e0e0e0; /* Couleur de fond neutre */
+    border-radius: 20px; /* Bords arrondis pour un look doux */
+    width: 300px; /* Largeur fixe, mais peut être ajustée ou rendue responsive */
+    height: 200px; /* Hauteur fixe, ajustable selon le besoin */
+    box-shadow:
+            10px 10px 20px #bebebe, /* Ombre extérieure pour un effet de profondeur */
+            -10px -10px 20px #ffffff; /* Lumière extérieure pour un effet de saillie */
+    display: flex; /* Flexbox pour aligner le contenu à l'intérieur */
+    justify-content: center; /* Centre horizontalement le contenu */
+    align-items: center; /* Centre verticalement le contenu */
+    text-align: center; /* Assure que le texte est centré si présent */
+    transition: box-shadow 0.3s ease-in-out; /* Transition douce pour les interactions */
+}
+
+.cv-container *:hover {
+    box-shadow:
+            5px 5px 10px #bebebe, /* Réduit l'ombre pour un effet de survol subtil */
+            -5px -5px 10px #ffffff; /* Réduit la lumière pour l'interaction */
+}

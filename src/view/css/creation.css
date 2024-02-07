@@ -1,5 +1,7 @@
 .container {
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 #header-line {
@@ -9,14 +11,16 @@
     width: 75%;
     top: 0;
     right: 0;
-    z-index: 11;
+    z-index: 9002;
 }
 
 .forms-container {
     position: fixed;
     width: 50vw;
+    min-width: 390px;
     height: 100%;
     background-color: #DEB472;
+    z-index: 9001; /* over 9000 */
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -25,19 +29,15 @@
     position: fixed !important;
 }
 
-.preview-container {
-    position: fixed;
-    right: 25vw;
-    top: calc(50vh + 60px);
-    transform: translate(50%, -50%);
-    height: calc(100vh - 70px);
-    width: 49vw;
-}
-
 .cv-container {
+    position: fixed;
     aspect-ratio: 21/29;
-    margin: auto;
-    height: 90%;
+    top: 50vh;
+    left: 75vw;
+    overflow: hidden;
+    transform: translate(-50%, calc(-50% + 30px)) scale(.8);
+
+    height: 100vh;
     background-color: #F2E2C2;
     box-shadow: #231711 0 0 10px 1px;
 }

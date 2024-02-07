@@ -1,6 +1,6 @@
 <?php
 
-namespace models;
+namespace model;
 
 use data\Database;
 
@@ -12,12 +12,20 @@ class CvContent
         $db = Database::getInstance();
         $stmt = $db->prepare("INSERT INTO CV_content (first_name, last_name, birth_date, profile_pic, address, email, phone, cv_id, color_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId, $colorId]);
+        return $db->lastInsertId();
     }
 
     public function getCvContentById($cvContentId) {
         $db = Database::getInstance();
         $stmt = $db->prepare("SELECT * FROM CV_content WHERE id = ?");
         $stmt->execute([$cvContentId]);
+        return $stmt->fetchAll();
+    }
+
+    public function getCvContentByCvId($cvId) {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM CV_content WHERE cv_id = ?");
+        $stmt->execute([$cvId]);
         return $stmt->fetchAll();
     }
 
@@ -31,5 +39,12 @@ class CvContent
         $db = Database::getInstance();
         $stmt = $db->prepare("DELETE FROM CV_content WHERE id = ?");
         $stmt->execute([$cvContentId]);
+    }
+
+    public function deleteCvContentByCvId($cv_id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("DELETE FROM CV_content WHERE cv_id = ?");
+        $stmt->execute([$cv_id]);
     }
 }

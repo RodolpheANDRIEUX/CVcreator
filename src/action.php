@@ -1,19 +1,37 @@
 <?php
 session_start();
 
+use controller\ProfessionalExperienceController;
 use controller\UserController;
 use controller\CvController;
 use controller\CvContentController;
+use controller\EducationController;
+use controller\SkillController;
+use controller\LanguageController;
+use controller\LicenseLinkTableController;
+use controller\InterestController;
 
 require_once __DIR__ . '/controller/UserController.php';
 require_once __DIR__ . '/controller/CvController.php';
 require_once __DIR__ . '/controller/CvContentController.php';
+require_once __DIR__ . '/controller/ProfessionalExperienceController.php';
+require_once __DIR__ . '/controller/EducationController.php';
+require_once __DIR__ . '/controller/SkillController.php';
+require_once __DIR__ . '/controller/LanguageController.php';
+require_once __DIR__ . '/controller/LicenseLinkTableController.php';
+require_once __DIR__ . '/controller/InterestController.php';
 require_once __DIR__ . '/logger.php';
 
 $logger = new Logger();
 $userController = new UserController();
 $cvController = new CvController();
 $cvContentController = new CvContentController();
+$ProfessionalExperienceController = new ProfessionalExperienceController();
+$educationController = new EducationController();
+$skillController = new SkillController();
+$languageController = new LanguageController();
+$licenseController = new LicenseLinkTableController();
+$interestController = new InterestController();
 
 $action = $_GET['action'] ?? 'default';
 $logger->log( ($_SESSION['username'] ?? 'Guest') . " called action $action");
@@ -43,6 +61,19 @@ switch ($action) {
         }
         break;
 
+    case 'submit_step2':
+        if (isset($_SESSION['user'])) {
+            if (submitStep2()) {
+                redirect('creation&step=3');
+                exit();
+            }
+            redirect('creation&step=1');
+        } else {
+            $_SESSION['error'] = "How did you get here? anyway, you need to login first!";
+            redirect('login');
+        }
+        break;
+
     case 'login':
         try {
             $userController->loginUser($_POST['username'], $_POST['password']);
@@ -60,10 +91,10 @@ switch ($action) {
             try {
                 $userController->addUser($_POST['username'], $_POST['email'], $_POST['password'], $_POST['password2']);
                 $userController->loginUser($_POST['username'], $_POST['password']);
-                header("Location: index.php?page=home");
+                redirect('home');
             } catch (Exception $e) {
                 $_SESSION['error'] = $e->getMessage();
-                header("Location: index.php?page=login");
+                redirect('login');
                 exit();
             }
         }
@@ -71,11 +102,11 @@ switch ($action) {
 
     case 'logout':
         session_destroy();
-        header("Location: index.php?page=home");
+        redirect('home');
         exit();
 
     default:
-        $logger->log( ($_SESSION['username'] ?? 'Guest') . " called action $action with no effect /!\ ");
+        $logger->log( ($_SESSION['username'] ?? 'Guest') . " called action $action with no effect /!\/!\/!\\");
         break;
 }
 
@@ -87,7 +118,7 @@ function redirect($page) {
 function addCv() {
     global $cvController, $logger;
     try {
-        $cvController->addCv('Cv created ' . date('d/m/y'), $_SESSION['user']['id']);
+        $_SESSION['cv_id'] = $cvController->addCv('Cv created ' . date('d/m/y'), $_SESSION['user']['id']);
     } catch (Exception $e) {
         $logger->log("Error: " . $e->getMessage());
         $_SESSION['error'] = "Erreur lors de la création du CV : " . $e->getMessage();
@@ -95,46 +126,36 @@ function addCv() {
         exit();
     }
     $logger->log("New CV created");
-    try {
-        $_SESSION['cv_id'] = $cvController->getCvByUserId($_SESSION['user']['id'])[0]['id'];
-    } catch (Exception $e) {
-        $logger->log("Error: " . $e->getMessage());
-        $_SESSION['error'] = "Erreur lors de la récupération du CV : " . $e->getMessage();
-        redirect('error');
-        exit();
-    }
-    $logger->log("Cv id: " . $_SESSION['cv_id']);
 }
 
 function submitStep1(): bool {
-    global $cvContentController, $logger;
-    try {
-        $logger->log($_POST['birthDate']);
-        $cvContentController->addCvContent(
-            $_POST['firstName'],
-            $_POST['lastName'],
-            $_POST['email'],
-            $_SESSION['cv_id'],
-            //$_POST['birthDate'],
-            $_POST['profilePic'],
-            $_POST['address'],
-            $_POST['phone']
-        );
-    } catch (Exception $e) {
-        $logger->log("Error: " . $e->getMessage());
-        $_SESSION['error'] = "Erreur lors de la création du CV : " . $e->getMessage();
-        redirect('error');
-        exit();
-    }
+    global $cvContentController, $logger, $ProfessionalExperienceController, $educationController, $skillController, $languageController, $interestController, $licenseController;
 
-    if (isset($_FILES['profilePic'])){
-        if (save_file($_FILES['profilePic'])) {
-            $logger->log("Profile picture saved");
-        } else {
-            $_SESSION['error'] = "Failed to save profile picture.";
+    $profilePicPath = '';
+    if (isset($_FILES['profilePic']) && $_FILES['profilePic']['size'] > 0){
+        $profilePicPath = save_file($_FILES['profilePic']);
+        if (!$profilePicPath) {
             return false;
         }
+        $logger->log("Profile picture saved");
     }
+
+    try {
+        if ($cvContentController->getCvContentByCvId($_SESSION['cv_id'])) {
+            $logger->log("cv content already exists, updating...");
+            $_SESSION['cvContent_id'] = $cvContentController->getCvContentByCvId($_SESSION['cv_id'])[0]['id'];
+            updateContent($profilePicPath);
+        } else {
+            $logger->log("cv content doesn't exist, creating...");
+            addContent($profilePicPath);
+        }
+    } catch (Exception $e) {
+        $logger->log("Error while creating or updating cv content : " . $e->getMessage());
+        $_SESSION['error'] =  $e->getMessage();
+        return false;
+    }
+
+    $logger->log($_SESSION['cvContent_id']);
 
     if (isset($_POST['experienceTitle'])) {
         $experienceTitles = $_POST['experienceTitle'];
@@ -142,43 +163,190 @@ function submitStep1(): bool {
 
         for ($i = 0; $i < count($experienceTitles); $i++) {
             $title = $experienceTitles[$i];
+            if ($title == '') {
+                continue;
+            }
             $description = $experienceDescriptions[$i];
-
-
-            // TODO: save experiences
+            try {
+                $logger->log("Adding professional experience: $title");
+                $logger->log("description: $description");
+                $logger->log("content id: " . $_SESSION['cvContent_id']);
+                $ProfessionalExperienceController->addProfessionalExperience($title, $description, $_SESSION['cvContent_id']);
+            } catch (Exception $e) {
+                $logger->log("Error: " . $e->getMessage());
+                $_SESSION['error'] =  $e->getMessage();
+                return false;
+            }
         }
     }
 
-    // TODO: faire les autres champs comme skills, education, etc.
+    if (isset($_POST['educationTitle'])) {
+        $educationTitles = $_POST['educationTitle'];
+        $educationDescriptions = $_POST['educationDescription'];
+
+        for ($i = 0; $i < count($educationTitles); $i++) {
+            $title = $educationTitles[$i];
+            if ($title == '') {
+                continue;
+            }
+            $description = $educationDescriptions[$i];
+
+            try {
+                $educationController->addEducation($title, $description, $_SESSION['cvContent_id']);
+            } catch (Exception $e) {
+                $logger->log("Error: " . $e->getMessage());
+                $_SESSION['error'] =  $e->getMessage();
+                return false;
+            }
+        }
+    }
+
+    if (isset($_POST['skillTitle'])) {
+        $skills = $_POST['skillTitle'];
+        $skillDescription = $_POST['skillDescription'];
+
+        for ($i = 0; $i < count($skills); $i++) {
+            $title = $skills[$i];
+            if ($title == '') {
+                continue;
+            }
+            $description = $skillDescription[$i];
+
+            try {
+                $skillController->addSkill($title, $description, $_SESSION['cvContent_id']);
+            } catch (Exception $e) {
+                $logger->log("Error: " . $e->getMessage());
+                $_SESSION['error'] =  $e->getMessage();
+                return false;
+            }
+        }
+    }
+
+    if (isset($_POST['language'])) {
+        $languageNames = $_POST['language'];
+        $languageLevels = $_POST['languageLevel'];
+
+        for ($i = 0; $i < count($languageNames); $i++) {
+            $name = $languageNames[$i];
+            if ($name == '') {
+                continue;
+            }
+            $level = $languageLevels[$i];
+
+            try {
+                $languageController->addLanguage($name, $level, $_SESSION['cvContent_id']);
+            } catch (Exception $e) {
+                $logger->log("Error: " . $e->getMessage());
+                $_SESSION['error'] =  $e->getMessage();
+                return false;
+            }
+        }
+    }
+
+    if (isset($_POST['interestTitle'])) {
+        $interestTitles = $_POST['interestTitle'];
+        $interestDescriptions = $_POST['interestDescription'];
+
+        for ($i = 0; $i < count($interestTitles); $i++) {
+            $title = $interestTitles[$i];
+            if ($title == '') {
+                continue;
+            }
+            $description = $interestDescriptions[$i];
+
+            try {
+                $interestController->addInterest($title, $description, $_SESSION['cvContent_id']);
+            } catch (Exception $e) {
+                $logger->log("Error: " . $e->getMessage());
+                $_SESSION['error'] =  $e->getMessage();
+                return false;
+            }
+        }
+    }
+
+    if (isset($_POST['license'])) {
+        $licenseIds = $_POST['license'];
+
+        for ($i = 0; $i < count($licenseIds); $i++) {
+            $licenseId = $licenseIds[$i];
+            if ($licenseId == '') {
+                continue;
+            }
+
+            try {
+                $licenseController->addLicenseLink($_SESSION['cvContent_id'], $licenseId);
+            } catch (Exception $e) {
+                $logger->log("Error: " . $e->getMessage());
+                $_SESSION['error'] =  $e->getMessage();
+                return false;
+            }
+        }
+    }
 
     $logger->log("Step 1 submitted successfully.");
     return true;
 }
 
-function save_file($file): bool
-{
+/**
+ * @throws Exception
+ */
+function addContent($profilePicPath = null) {
+    global $cvContentController, $logger;
+    $_SESSION['cvContent_id'] = $cvContentController->addCvContent(
+        $_POST['firstName'],
+        $_POST['lastName'],
+        $_POST['email'],
+        $_SESSION['cv_id'],
+        $_POST['birthDate'],
+        $profilePicPath,
+        $_POST['address'],
+        $_POST['phone']
+    );
+    $logger->log("CV content created. Id = " . $_SESSION['cvContent_id']);
+}
+
+/**
+ * @throws Exception
+ */
+function updateContent($profilePicPath = null) {
+    global $cvContentController, $logger;
+
+    $cvContentController->updateCvContent(
+        $_POST['firstName'],
+        $_POST['lastName'],
+        $_POST['email'],
+        $_SESSION['cv_id'],
+        $_POST['birthDate'],
+        $profilePicPath,
+        $_POST['address'],
+        $_POST['phone']
+    );
+    $logger->log("CV content updated.");
+}
+
+function save_file($file): string {
     global $logger;
 
     if ($file['size'] > 500000) {
         $_SESSION['error'] = "File is too large.";
-        return false;
+        return '';
     }
 
     $fileType = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if($fileType != "jpg" && $fileType != "png" && $fileType != "jpeg" && $fileType != "gif" ) {
         $_SESSION['error'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        return false;
+        return '';
     }
 
-    $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
+    $uploadDir = __DIR__ . '/../uploads/';
     $uploadFile = $uploadDir . basename($file['name']);
 
     if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
         $logger->log("File has been uploaded successfully.");
     } else {
         $_SESSION['error'] = "Failed to upload file.";
-        return false;
+        return '';
     }
 
-    return true;
+    return $uploadFile;
 }

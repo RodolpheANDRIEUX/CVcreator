@@ -1,6 +1,6 @@
 <?php
 
-namespace models;
+namespace model;
 
 use data\Database;
 
@@ -12,12 +12,21 @@ class Cv
         $db = Database::getInstance();
         $stmt = $db->prepare("INSERT INTO CV (title, thumbnail, template_path, user_id) VALUES (?, ?, ?, ?)");
         $stmt->execute([$title, $thumbnail, $template_path, $userId]);
+        return $db->lastInsertId();
     }
 
     public function getCvByUserId($userId) {
         $db = Database::getInstance();
         $stmt = $db->prepare("SELECT * FROM CV WHERE user_id = ?");
         $stmt->execute([$userId]);
+        return $stmt->fetchAll();
+    }
+
+    public function getCvById($cvId)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM CV WHERE id = ?");
+        $stmt->execute([$cvId]);
         return $stmt->fetchAll();
     }
 

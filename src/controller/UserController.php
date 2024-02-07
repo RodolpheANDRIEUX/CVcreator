@@ -3,9 +3,9 @@
 namespace controller;
 
 use Exception;
-use models\UserModel;
+use model\UserModel;
 
-require_once __DIR__ . '/../models/UserModel.php';
+require_once __DIR__ . '/../model/UserModel.php';
 
 class UserController {
     private $userModel;

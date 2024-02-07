@@ -6,6 +6,7 @@
 </head>
 
 <body>
+<div id="loading-layer"></div>
 <div id="backgroundImg"></div>
 <?php include 'view/header.php'; ?>
 <img src="view/assets/dummy-cv.svg" class="dummy-cv" alt="Exemples de cv">
@@ -39,3 +40,13 @@
 </section>
 </body>
 </html>
+
+<script>
+    window.onload = function() {
+        const loadingLayer = document.getElementById('loading-layer');
+        loadingLayer.classList.add('fade-out');
+        loadingLayer.addEventListener('animationend', function() {
+            loadingLayer.style.display = 'none';
+        });
+    }
+</script>

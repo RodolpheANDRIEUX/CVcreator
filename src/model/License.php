@@ -1,6 +1,6 @@
 <?php
 
-namespace models;
+namespace model;
 
 use data\Database;
 
@@ -18,6 +18,13 @@ class License
         $db = Database::getInstance();
         $stmt = $db->prepare("SELECT * FROM License WHERE id = ?");
         $stmt->execute([$licenseId]);
+        return $stmt->fetchAll();
+    }
+
+    public function getAllLicenses() {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM License");
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 

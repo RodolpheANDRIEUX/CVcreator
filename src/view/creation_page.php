@@ -26,13 +26,10 @@
         ?>
     </section>
 
-    <section class="preview-container">
-        <div class="cv-container">
-            <?php include 'view/cv.php'; ?>
-        </div>
+    <section class="cv-container">
+        <?php include 'view/cv.php'; ?>
     </section>
 
 </div>
-
 </body>
 </html>

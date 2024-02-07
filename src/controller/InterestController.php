@@ -3,9 +3,9 @@
 namespace controller;
 
 use Exception;
-use models\Interest;
+use model\Interest;
 
-require_once __DIR__ . '/../models/Interest.php';
+require_once __DIR__ . '/../model/Interest.php';
 
 class InterestController {
     private $interestModel;
@@ -18,8 +18,8 @@ class InterestController {
      * @throws Exception for each validation error
      */
     public function addInterest($title, $description, $cvContentId) {
-        if (empty($title) || empty($description) || empty($cvContentId)) {
-            throw new Exception("Title, description and CV content ID are required.");
+        if (empty($title) || empty($cvContentId)) {
+            throw new Exception("Title and CV content ID are required.");
         }
 
         $this->interestModel->createInterest($title, $description, $cvContentId);

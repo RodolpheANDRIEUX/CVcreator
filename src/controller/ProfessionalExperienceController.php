@@ -3,9 +3,9 @@
 namespace controller;
 
 use Exception;
-use models\ProfessionalExperience;
+use model\ProfessionalExperience;
 
-require_once __DIR__ . '/../models/ProfessionalExperience.php';
+require_once __DIR__ . '/../model/ProfessionalExperience.php';
 
 class ProfessionalExperienceController {
     private $professionalExperienceModel;
@@ -18,8 +18,8 @@ class ProfessionalExperienceController {
      * @throws Exception for each validation error
      */
     public function addProfessionalExperience($title, $description, $cvContentId) {
-        if (empty($title) || empty($description) || empty($cvContentId)) {
-            throw new Exception("Title, description and CV content ID are required.");
+        if (empty($title) || empty($cvContentId)) {
+            throw new Exception("Title and CV content ID are required.");
         }
 
         $this->professionalExperienceModel->createProfessionalExperience($title, $description, $cvContentId);

@@ -43,3 +43,74 @@
 .progress-bar span:nth-child(4) {
     right: -5px;
 }
+
+form {
+    margin-left: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 200px;
+}
+
+form button[type="submit"] {
+    border: none;
+    outline: none;
+    background-color: #231711;
+    color: #F2E2C2;
+    width: 150px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-right: 75px;
+}
+
+.grid-container {
+    border-left: #23171177 3px solid;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+    gap: 20px;
+    padding: 20px 40px;
+    margin-top: 50px;
+}
+
+.card {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F2E2C2;
+    padding-bottom: 150px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: #231711 0 0 5px 0;
+    transition: transform 0.3s ease-out;
+}
+
+.card:hover {
+    transform: translate(0, -5px);
+    box-shadow: #231711 0 0 6px 0;
+}
+
+.card:active {
+    transition: 0s;
+    transform: translate(0, 5px) scale(.98);
+    box-shadow: #231711 0 0 2px 0;
+}
+
+.card input[type="radio"]:checked + .card-content {
+    background-color: #231711;
+    color: #F2E2C2;
+}
+
+.card input[type="radio"] {
+    display: none;
+}
+
+.card-content {
+    padding: 10px;
+}
+
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
