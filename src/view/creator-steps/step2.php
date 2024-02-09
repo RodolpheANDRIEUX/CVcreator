@@ -19,6 +19,13 @@
     </div>
 </div>
 
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="error">
+        <?= $_SESSION['error'] ?>
+    </div>
+    <?php unset($_SESSION['error']) ?>
+<?php endif ?>
+
 <form action="action.php?action=submit_step2" method="POST">
     <div class="grid-container">
         <label class="card" for="option1">

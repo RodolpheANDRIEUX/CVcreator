@@ -36,8 +36,14 @@ if (isset($_SESSION['cvContent_id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" id="preview-css-link" href="view/templates/">
+    <?php if (isset($_SESSION['css_file'])): ?>
+        <link rel="stylesheet" type="text/css" id="preview-css-link" href="<?php echo "view/templates/" . $_SESSION['css_file']; ?>">
+    <?php else: ?>
+        <link rel="stylesheet" type="text/css" id="preview-css-link" href="view/templates/">
+    <?php endif; ?>
+
 </head>
+
 <body>
 <?php if (isset($_SESSION['cvContent_id'])): ?>
 

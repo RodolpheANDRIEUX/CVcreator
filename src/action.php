@@ -67,7 +67,7 @@ switch ($action) {
                 redirect('creation&step=3');
                 exit();
             }
-            redirect('creation&step=1');
+            redirect('creation&step=2');
         } else {
             $_SESSION['error'] = "How did you get here? anyway, you need to login first!";
             redirect('login');
@@ -119,6 +119,8 @@ function addCv() {
     global $cvController, $logger;
     try {
         $_SESSION['cv_id'] = $cvController->addCv('Cv created ' . date('d/m/y'), $_SESSION['user']['id']);
+        $_SESSION['cvContent_id'] = null;
+        $_SESSION['css_file'] = null;
     } catch (Exception $e) {
         $logger->log("Error: " . $e->getMessage());
         $_SESSION['error'] = "Erreur lors de la création du CV : " . $e->getMessage();
@@ -287,6 +289,27 @@ function submitStep1(): bool {
     return true;
 }
 
+function submitStep2(): bool
+{
+    global $cvController, $logger;
+
+    if (isset($_POST['css_option'])) {
+        $css_file = $_POST['css_option'];
+        try {
+            $cv = $cvController->GetCvById($_SESSION['cv_id'])[0];
+            $cvController->updateCv($cv['title'], $_SESSION['cv_id'] , '', $css_file);
+            $_SESSION['css_file'] = $css_file;
+        } catch (Exception $e) {
+            $logger->log("Error: " . $e->getMessage());
+            $_SESSION['error'] =  $e->getMessage();
+            return false;
+        }
+    }
+
+    $logger->log("Step 2 submitted successfully.");
+    return true;
+}
+
 /**
  * @throws Exception
  */
@@ -327,8 +350,8 @@ function updateContent($profilePicPath = null) {
 function save_file($file): string {
     global $logger;
 
-    if ($file['size'] > 500000) {
-        $_SESSION['error'] = "File is too large.";
+    if ($file['size'] > 900000) {
+        $_SESSION['error'] = "File is too large."; // seemed like a good value idk
         return '';
     }
 

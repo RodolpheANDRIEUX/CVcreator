@@ -50,7 +50,7 @@ class CvController {
     /**
      * @throws Exception if id or title is empty
      */
-    public function updateCv($title, $userId, $thumbnail = null, $template_path = null) {
+    public function updateCv($title, $cvId, $thumbnail = null, $template_path = null) {
         if (empty($cvId) || empty($title)) {
             throw new Exception("A title is required.");
         }
