@@ -31,12 +31,12 @@
 
 .cv-container {
     position: fixed;
-    aspect-ratio: 21/29;
+    aspect-ratio: 210/297; /* A4 */
     top: 50vh;
     left: 75vw;
     overflow: hidden;
     transform: translate(-50%, calc(-50% + 30px)) scale(.8);
-
+    z-index: -1;
     height: 100vh;
     background-color: #F2E2C2;
     box-shadow: #231711 0 0 10px 1px;

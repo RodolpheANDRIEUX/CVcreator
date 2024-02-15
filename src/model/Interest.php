@@ -32,4 +32,12 @@ class Interest
         $stmt = $db->prepare("DELETE FROM Interest WHERE id = ?");
         $stmt->execute([$interestId]);
     }
+
+    public function getInterestByContentId($cvContent_id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM Interest WHERE cv_content_id = ?");
+        $stmt->execute([$cvContent_id]);
+        return $stmt->fetchAll();
+    }
 }

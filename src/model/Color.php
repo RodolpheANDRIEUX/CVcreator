@@ -8,10 +8,11 @@ require_once __DIR__ . '/../data/Database.php';
 
 class Color
 {
-    public function createColor($name, $color1, $color2, $color3, $color4) {
+    public function createColor($name, $thumbnail, $color1, $color2, $color3, $color4) {
         $db = Database::getInstance();
-        $stmt = $db->prepare("INSERT INTO Color (name, color1, color2, color3, color4) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$name, $color1, $color2, $color3, $color4]);
+        $stmt = $db->prepare("INSERT INTO Color (name, thumbnail, color1, color2, color3, color4) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $thumbnail, $color1, $color2, $color3, $color4]);
+        return $db->lastInsertId();
     }
 
     public function getColorById($colorId) {
@@ -21,10 +22,11 @@ class Color
         return $stmt->fetchAll();
     }
 
-    public function updateColor($colorId, $name, $color1, $color2, $color3, $color4) {
+    public function updateColor($colorId, $name, $thumbnail, $color1, $color2, $color3, $color4)
+    {
         $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE Color SET name = ?, color1 = ?, color2 = ?, color3 = ?, color4 = ? WHERE id = ?");
-        $stmt->execute([$name, $color1, $color2, $color3, $color4, $colorId]);
+        $stmt = $db->prepare("UPDATE Color SET name = ?, thumbnail = ?, color1 = ?, color2 = ?, color3 = ?, color4 = ? WHERE id = ?");
+        $stmt->execute([$name, $thumbnail, $color1, $color2, $color3, $color4, $colorId]);
     }
 
     public function deleteColor($colorId) {
@@ -32,4 +34,13 @@ class Color
         $stmt = $db->prepare("DELETE FROM Color WHERE id = ?");
         $stmt->execute([$colorId]);
     }
+
+    public function getAllColors()
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM Color");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
 }

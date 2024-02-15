@@ -17,20 +17,20 @@ class CvContentController {
     /**
      * @throws Exception for each validation error
      */
-    public function addCvContent($firstName, $lastName, $email, $cvId, $birthDate = null, $profilePic = null, $address = null, $phone = null, $colorId = null) {
+    public function addCvContent($firstName, $lastName, $email, $cvId, $birthDate = null, $profilePic = null, $address = null, $phone = null) {
         if (empty($firstName) || empty($lastName) || empty($email)) {
             throw new Exception("First name, last name and email are required.");
         }
 
         $birthDate = ($birthDate != '') ? $birthDate : null;
 
-        return $this->cvContentModel->createCvContent($firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId, $colorId);
+        return $this->cvContentModel->createCvContent($firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId);
     }
 
     /**
      * @throws Exception if the id is empty
      */
-    public function getCvContentById($id) {
+    public function GetByContentId($id) {
         if (empty($id)) {
             throw new Exception("ID is required.");
         }
@@ -52,14 +52,14 @@ class CvContentController {
     /**
      * @throws Exception if id or first name or last name or email is empty
      */
-    public function updateCvContent($firstName, $lastName, $email, $cvId, $birthDate, $profilePic = null, $address = null, $phone = null, $colorId = null) {
+    public function updateCvContent($firstName, $lastName, $email, $cvId, $birthDate, $profilePic = null, $address = null, $phone = null) {
         if (empty($cvId) || empty($firstName) || empty($lastName) || empty($email)) {
             throw new Exception("ID, first name, last name and email are required.");
         }
 
         $birthDate = ($birthDate != '') ? $birthDate : null;
 
-        $this->cvContentModel->updateCvContent($cvId, $firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId, $colorId);
+        $this->cvContentModel->updateCvContent($cvId, $firstName, $lastName, $birthDate, $profilePic, $address, $email, $phone, $cvId);
     }
 
     /**

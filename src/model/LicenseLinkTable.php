@@ -32,4 +32,12 @@ class LicenseLinkTable
         $stmt = $db->prepare("DELETE FROM License_link WHERE id = ?");
         $stmt->execute([$linkId]);
     }
+
+    public function getLicenseLinkByContentId($cvContent_id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM License_link WHERE cv_content_id = ?");
+        $stmt->execute([$cvContent_id]);
+        return $stmt->fetchAll();
+    }
 }

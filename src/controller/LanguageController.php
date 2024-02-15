@@ -57,4 +57,9 @@ class LanguageController {
 
         $this->languageModel->deleteLanguage($id);
     }
+
+    public function GetByContentId($cvContent_id)
+    {
+        return $this->languageModel->getLanguageByContentId($cvContent_id);
+    }
 }

@@ -57,4 +57,9 @@ class SkillController {
 
         $this->skillModel->deleteSkill($id);
     }
+
+    public function GetByContentId($cvContent_id)
+    {
+        return $this->skillModel->getSkillByContentId($cvContent_id);
+    }
 }

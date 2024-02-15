@@ -57,4 +57,9 @@ class InterestController {
 
         $this->interestModel->deleteInterest($id);
     }
+
+    public function GetByContentId($cvContent_id)
+    {
+        return $this->interestModel->getInterestByContentId($cvContent_id);
+    }
 }

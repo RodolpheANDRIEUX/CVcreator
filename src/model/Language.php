@@ -32,4 +32,12 @@ class Language
         $stmt = $db->prepare("DELETE FROM Language WHERE id = ?");
         $stmt->execute([$languageId]);
     }
+
+    public function getLanguageByContentId($cvContent_id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM Language WHERE cv_content_id = ?");
+        $stmt->execute([$cvContent_id]);
+        return $stmt->fetchAll();
+    }
 }

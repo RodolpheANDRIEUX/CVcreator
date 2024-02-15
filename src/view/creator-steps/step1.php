@@ -9,7 +9,7 @@
     $licenseController = new LicenseController();
     $licenses = $licenseController->getAllLicenses();
     ?>
-    <link rel="stylesheet" type="text/css" href="view/css/step1.css">
+    <link rel="stylesheet" type="text/css" href="view/creator-steps/step1.css">
 </head>
 
 <div class="progress-bar-container">
@@ -29,7 +29,7 @@
     <?php unset($_SESSION['error']) ?>
 <?php endif ?>
 
-<div class="form-container">
+<section id="step1">
     <form action="action.php?action=submit_step1" method="POST" enctype="multipart/form-data">
 
         <div class="coords">
@@ -95,7 +95,7 @@
 
         <button type="submit" class="btn-next">Suivant</button>
     </form>
-</div>
+</section>
 
 <script>
     <?php include 'view/creator-steps/step1.js'; ?>

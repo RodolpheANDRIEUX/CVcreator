@@ -30,10 +30,10 @@ class Cv
         return $stmt->fetchAll();
     }
 
-    public function updateCv($cvId, $title, $thumbnail, $template_path) {
+    public function updateCv($cvId, $title, $thumbnail, $template_path, $colorId) {
         $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE CV SET title = ?, thumbnail = ?, template_path = ? WHERE id = ?");
-        $stmt->execute([$title, $thumbnail, $template_path, $cvId]);
+        $stmt = $db->prepare("UPDATE CV SET title = ?, thumbnail = ?, template_path = ?, color_id = ? WHERE id = ?");
+        $stmt->execute([$title, $thumbnail, $template_path, $colorId, $cvId]);
     }
 
     public function deleteCv($cvId) {

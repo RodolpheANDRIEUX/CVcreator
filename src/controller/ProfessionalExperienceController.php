@@ -57,4 +57,9 @@ class ProfessionalExperienceController {
 
         $this->professionalExperienceModel->deleteProfessionalExperience($id);
     }
+
+    public function GetByContentId($cvContent_id)
+    {
+        return $this->professionalExperienceModel->getProfessionalExperienceByContentId($cvContent_id);
+    }
 }

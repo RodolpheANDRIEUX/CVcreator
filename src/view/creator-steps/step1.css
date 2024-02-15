@@ -44,19 +44,19 @@
     right: -5px;
 }
 
-.form-container {
+#step1 {
     position: relative;
     padding: 50px 10% 200px 8%;
 }
 
-form {
+#step1 form {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     width: 100%;
 }
 
-input {
+#step1 input {
     border: none;
     border-bottom: 1px solid #231711;
     outline: none;
@@ -69,7 +69,7 @@ input {
     width: 80%;
 }
 
-input::placeholder {
+#step1 input::placeholder {
     color: #231711;
     opacity: 50%;
 }
@@ -101,11 +101,11 @@ input::placeholder {
     align-self: end;
 }
 
-input[type="file"] {
+#step1 input[type="file"] {
     display: none;
 }
 
-form button[type="submit"] {
+#step1 form button[type="submit"] {
     border: none;
     outline: none;
     background-color: #231711;
@@ -125,7 +125,7 @@ form button[type="submit"] {
     align-self: center;
 }
 
-form .input-container {
+#step1 form .input-container {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -134,7 +134,7 @@ form .input-container {
     margin: 20px;
 }
 
-form section {
+#step1 form section {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -143,7 +143,7 @@ form section {
     margin: 20px;
 }
 
-textarea {
+#step1 textarea {
     border: none;
     outline: none;
     background-color: #F2E2C255;
@@ -155,7 +155,7 @@ textarea {
     resize: vertical;
 }
 
-textarea::placeholder {
+#step1 textarea::placeholder {
     color: #231711;
     opacity: 50%;
 }
@@ -203,7 +203,7 @@ textarea::placeholder {
     padding: 0;
 }
 
-form select {
+#step1 form select {
     border: none;
     outline: none;
     width: 50%;
@@ -215,14 +215,14 @@ form select {
     margin: 10px 0 20px 0;
 }
 
-form select option {
+#step1 form select option {
     color: #231711;
     background-color: #F2E2C2;
     font-size: 15px;
     font-weight: bold;
 }
 
-h3 {
+#step1 h3 {
     font-family: 'playfair display', sans-serif;
     font-weight: 600;
     color: #231711;

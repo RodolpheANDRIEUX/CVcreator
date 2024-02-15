@@ -25,6 +25,16 @@ class CvController {
         return $this->cvModel->createCv($title, $thumbnail, $template_path, $userId);
     }
 
+    public function generateCvHtml($cvId) {
+        $file = __DIR__ . '/../view/cv.php';
+        ob_start();
+        $_SESSION['cv_id'] = $cvId;
+        include($file);
+        $html = ob_get_contents();
+        ob_end_clean();
+        return $html;
+    }
+
     /**
      * @throws Exception if the id is empty
      */
@@ -50,12 +60,13 @@ class CvController {
     /**
      * @throws Exception if id or title is empty
      */
-    public function updateCv($title, $cvId, $thumbnail = null, $template_path = null) {
+    public function updateCv($title, $cvId, $thumbnail = null, $template_path = null, $colorId = null) {
+        global $logger;
         if (empty($cvId) || empty($title)) {
             throw new Exception("A title is required.");
         }
-
-        $this->cvModel->updateCv($cvId, $title, $thumbnail, $template_path);
+        $logger->log("Updating CV with color: " . $colorId);
+        $this->cvModel->updateCv($cvId, $title, $thumbnail, $template_path, $colorId);
     }
 
     /**

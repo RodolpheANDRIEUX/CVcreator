@@ -57,4 +57,9 @@ class LicenseLinkTableController {
 
         $this->licenseLinkTableModel->deleteLicenseLink($linkId);
     }
+
+    public function GetByContentId($cvContent_id)
+    {
+        return $this->licenseLinkTableModel->getLicenseLinkByContentId($cvContent_id);
+    }
 }

@@ -56,4 +56,16 @@ class EducationController {
 
         $this->educationModel->deleteEducation($id);
     }
+
+    /**
+     * @throws Exception
+     */
+    public function GetByContentId($cv_id)
+    {
+        if (empty($cv_id)) {
+            throw new Exception("CV ID is required.");
+        }
+
+        return $this->educationModel->getEducationByContentId($cv_id);
+    }
 }

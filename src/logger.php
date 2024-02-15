@@ -3,7 +3,7 @@
 class logger {
     private $logFile;
 
-    public function __construct($logFile = '../cvCreator.log') {
+    public function __construct($logFile = __DIR__ . '../../cvCreator.log') {
         $this->logFile = $logFile;
     }
 

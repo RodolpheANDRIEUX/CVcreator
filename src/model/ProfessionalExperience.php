@@ -32,4 +32,12 @@ class ProfessionalExperience
         $stmt = $db->prepare("DELETE FROM Professional_experience WHERE id = ?");
         $stmt->execute([$experienceId]);
     }
+
+    public function getProfessionalExperienceByContentId($cvContent_id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM Professional_experience WHERE cv_content_id = ?");
+        $stmt->execute([$cvContent_id]);
+        return $stmt->fetchAll();
+    }
 }

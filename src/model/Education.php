@@ -32,4 +32,12 @@ class Education
         $stmt = $db->prepare("DELETE FROM Education WHERE id = ?");
         $stmt->execute([$educationId]);
     }
+
+    public function getEducationByContentId($cv_id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM Education WHERE cv_content_id = ?");
+        $stmt->execute([$cv_id]);
+        return $stmt->fetchAll();
+    }
 }

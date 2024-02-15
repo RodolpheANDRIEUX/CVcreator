@@ -74,6 +74,19 @@ switch ($action) {
         }
         break;
 
+    case 'submit_step3':
+        if (isset($_SESSION['user'])) {
+            if (submitStep3()) {
+                redirect('creation&step=4');
+                exit();
+            }
+            redirect('creation&step=3');
+        } else {
+            $_SESSION['error'] = "How did you get here? anyway, you need to login first!";
+            redirect('login');
+        }
+        break;
+
     case 'login':
         try {
             $userController->loginUser($_POST['username'], $_POST['password']);
@@ -121,6 +134,7 @@ function addCv() {
         $_SESSION['cv_id'] = $cvController->addCv('Cv created ' . date('d/m/y'), $_SESSION['user']['id']);
         $_SESSION['cvContent_id'] = null;
         $_SESSION['css_file'] = null;
+        $_SESSION['color_id'] = null;
     } catch (Exception $e) {
         $logger->log("Error: " . $e->getMessage());
         $_SESSION['error'] = "Erreur lors de la création du CV : " . $e->getMessage();
@@ -310,6 +324,30 @@ function submitStep2(): bool
     return true;
 }
 
+function submitStep3(): bool
+{
+    global $cvController, $logger;
+
+    if (isset($_POST['color'])) {
+        $color = $_POST['color'];
+        try {
+            $cv = $cvController->GetCvById($_SESSION['cv_id'])[0];
+            $cvController->updateCv($cv['title'], $_SESSION['cv_id'], '', $_SESSION['css_file'], $color);
+            $_SESSION['color_id'] = $color;
+            $logger->log("Color set to : $color");
+        } catch (Exception $e) {
+            $logger->log("Error: " . $e->getMessage());
+            $_SESSION['error'] = $e->getMessage();
+            return false;
+        }
+        $logger->log("Step 3 submitted successfully.");
+        return true;
+    }
+
+    $_SESSION['error'] = "No color selected.";
+    return false;
+}
+
 /**
  * @throws Exception
  */
@@ -361,8 +399,7 @@ function save_file($file): string {
         return '';
     }
 
-    $uploadDir = __DIR__ . '/../uploads/';
-    $uploadFile = $uploadDir . basename($file['name']);
+    $uploadFile = basename($file['name']);
 
     if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
         $logger->log("File has been uploaded successfully.");

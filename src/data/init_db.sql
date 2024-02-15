@@ -8,22 +8,25 @@ CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS Color (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    thumbnail TEXT,
+    color1 VARCHAR(255),
+    color2 VARCHAR(255),
+    color3 VARCHAR(255),
+    color4 VARCHAR(255)
+);
+
 CREATE TABLE IF NOT EXISTS CV (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     thumbnail VARCHAR(255),
     template_path VARCHAR(255),
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);
-
-CREATE TABLE IF NOT EXISTS Color (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    color1 VARCHAR(255),
-    color2 VARCHAR(255),
-    color3 VARCHAR(255),
-    color4 VARCHAR(255)
+    color_id INT,
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (color_id) REFERENCES Color(id)
 );
 
 CREATE TABLE IF NOT EXISTS CV_content (
@@ -36,9 +39,7 @@ CREATE TABLE IF NOT EXISTS CV_content (
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
     cv_id INT,
-    color_id INT,
-    FOREIGN KEY (cv_id) REFERENCES CV(id),
-    FOREIGN KEY (color_id) REFERENCES Color(id)
+    FOREIGN KEY (cv_id) REFERENCES CV(id)
 );
 
 CREATE TABLE IF NOT EXISTS Interest (

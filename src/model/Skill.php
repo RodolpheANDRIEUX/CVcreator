@@ -32,4 +32,12 @@ class Skill
         $stmt = $db->prepare("DELETE FROM Skill WHERE id = ?");
         $stmt->execute([$skillId]);
     }
+
+    public function getSkillByContentId($cvContent_id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM Skill WHERE cv_content_id = ?");
+        $stmt->execute([$cvContent_id]);
+        return $stmt->fetchAll();
+    }
 }

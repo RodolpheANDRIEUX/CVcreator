@@ -1,4 +1,10 @@
-.cv-container * {
+
+#cv-body {
+    min-height: 100%;
+}
+
+p {
+    position: absolute;
     background: #F2E2C2;
     color: #231711;
     border-radius: 20px;
