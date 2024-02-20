@@ -20,7 +20,7 @@ require_once __DIR__ . '/controller/SkillController.php';
 require_once __DIR__ . '/controller/LanguageController.php';
 require_once __DIR__ . '/controller/LicenseLinkTableController.php';
 require_once __DIR__ . '/controller/InterestController.php';
-require_once __DIR__ . '/logger.php';
+require_once __DIR__ . '/Logger.php';
 
 $logger = new Logger();
 $userController = new UserController();
@@ -87,6 +87,17 @@ switch ($action) {
         }
         break;
 
+    case 'open':
+        if (isset($_SESSION['user'])) {
+            $_SESSION['cv_id'] = $_GET['id'];
+            redirect('creation&step=' . getStep($_SESSION['cv_id']));
+            exit();
+        } else {
+            $_SESSION['error'] = "How did you get here? anyway, you need to login first!";
+            redirect('login');
+        }
+        break;
+
     case 'login':
         try {
             $userController->loginUser($_POST['username'], $_POST['password']);
@@ -126,6 +137,37 @@ switch ($action) {
 function redirect($page) {
     header("Location: index.php?page=$page");
     exit();
+}
+
+function getStep($cv_id): int
+{
+    global $cvContentController, $logger, $cvController;
+
+    try {
+        $content = $cvContentController->getCvContentByCvId($cv_id);
+    } catch (Exception $e) {
+        $logger->log("Error: " . $e->getMessage());
+    }
+    if (!isset($content)) {return 2;}
+    $_SESSION['cvContent_id'] = $content[0]['id'];
+
+    try {
+        $css = $cvController->GetCvById($cv_id)[0]['css_file'];
+    } catch (Exception $e) {
+        $logger->log("Error: " . $e->getMessage());
+    }
+    if (!isset($css)) {return 3;}
+    $_SESSION['css_file'] = $css;
+
+    try {
+        $color = $cvController->GetCvById($cv_id)[0]['color_id'];
+    } catch (Exception $e) {
+        $logger->log("Error: " . $e->getMessage());
+    }
+    if (!isset($color)) {return 4;}
+    $_SESSION['color_id'] = $color;
+
+    return 1;
 }
 
 function addCv() {
@@ -388,8 +430,8 @@ function updateContent($profilePicPath = null) {
 function save_file($file): string {
     global $logger;
 
-    if ($file['size'] > 900000) {
-        $_SESSION['error'] = "File is too large."; // seemed like a good value idk
+    if ($file['size'] > 9000000) {
+        $_SESSION['error'] = "File is too large.";
         return '';
     }
 
@@ -401,7 +443,15 @@ function save_file($file): string {
 
     $uploadFile = basename($file['name']);
 
-    if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+    $targetDirectory = $_SERVER['DOCUMENT_ROOT'] . '/CVcreator/uploads/';
+
+    if (!file_exists($targetDirectory)) {
+        mkdir($targetDirectory, 0777, true);
+    }
+
+    $targetFile = $targetDirectory . $uploadFile;
+
+    if (move_uploaded_file($file['tmp_name'], $targetFile)) {
         $logger->log("File has been uploaded successfully.");
     } else {
         $_SESSION['error'] = "Failed to upload file.";

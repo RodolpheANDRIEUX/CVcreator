@@ -6,7 +6,7 @@
 
 #header-line {
     position: absolute;
-    background-color: #231711;
+    background-color: var(--primary-color);
     height: 1px;
     width: 75%;
     top: 0;
@@ -19,7 +19,7 @@
     width: 50vw;
     min-width: 390px;
     height: 100%;
-    background-color: #DEB472;
+    background-color: var(--secondary-color);
     z-index: 9001; /* over 9000 */
     overflow-y: scroll;
     overflow-x: hidden;
@@ -31,14 +31,13 @@
 
 .cv-container {
     position: fixed;
-    aspect-ratio: 210/297; /* A4 */
     top: 50vh;
     left: 75vw;
-    overflow: hidden;
+    aspect-ratio: 210/297; /* A4 */
     transform: translate(-50%, calc(-50% + 30px)) scale(.8);
     z-index: -1;
     height: 100vh;
-    background-color: #F2E2C2;
-    box-shadow: #231711 0 0 10px 1px;
+    background-color: var(--tertiary-color);
+    box-shadow: var(--primary-color) 0 0 10px 1px;
 }
 

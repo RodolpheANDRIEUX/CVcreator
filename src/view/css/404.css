@@ -1,5 +1,5 @@
 body {
-    background-color: #231711 !important;
+    background-color: var(--primary-color) !important;
 }
 
 .container {
@@ -14,14 +14,14 @@ body {
 .error {
     font-size: 100px;
     font-weight: bold;
-    color: #F2E2C2;
-    text-shadow: 4px 4px 0px #000;
+    color: var(--tertiary-color);
+    text-shadow: 4px 4px 0 var(--primary-color);
 }
 
 button {
-    background-color: #231711;
-    color: #F2E2C2;
-    border: 1px solid #F2E2C2;
+    background-color: var(--primary-color);
+    color: var(--tertiary-color);
+    border: 1px solid var(--tertiary-color);
     border-radius: 5px;
     padding: 10px 20px;
     font-size: 20px;
@@ -31,14 +31,14 @@ button {
 }
 
 button:hover {
-    background-color: #F2E2C2;
-    color: #231711;
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
 }
 
 .error_message {
     border-radius: 3px;
     padding: 30px;
-    background-color: black;
-    color: #F2E2C2;
+    background-color: var(--primary-color);
+    color: var(--tertiary-color);
     margin: 20px;
 }

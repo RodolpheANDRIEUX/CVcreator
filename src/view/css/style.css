@@ -1,3 +1,9 @@
+:root {
+    --primary-color: #231711;
+    --secondary-color: #DEB472;
+    --tertiary-color: #F2E2C2;
+}
+
 /* Reset CSS */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -28,7 +34,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
     line-height: 1;
-    background-color: #F2E2C2;
+    background-color: var(--tertiary-color);
 }
 
 ol, ul {
@@ -49,11 +55,11 @@ ol {
 }
 
 ::-webkit-scrollbar-track {
-    background: #DEB472;
+    background: var(--secondary-color);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #231711;
+    background-color: var(--primary-color);
 }
 
 ::-webkit-scrollbar-thumb:hover {

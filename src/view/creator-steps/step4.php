@@ -6,10 +6,10 @@
 <div class="progress-bar-container">
     <h2>Étape 4 : Partagez votre nouveau CV</h2>
     <div class="progress-bar">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <a href="?page=creation&step=1"></a>
+        <a href="?page=creation&step=2"></a>
+        <a href="?page=creation&step=3"></a>
+        <a href="?page=creation&step=4"></a>
     </div>
 </div>
 
@@ -21,7 +21,7 @@
 <?php endif ?>
 
 <div class="card">
-    <a href="Utils/pdf.php" class="dl-btn">Telecharger en PDF</a>
+    <a href="utils/pdf.php" class="dl-btn">Telecharger en PDF</a>
 
     <div class="share-container">
         <label for="share-link"><h3>Lien de partage</h3></label>

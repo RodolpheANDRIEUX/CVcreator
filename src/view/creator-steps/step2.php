@@ -12,10 +12,10 @@
 <div class="progress-bar-container">
     <h2>Étape 2 : Sélectionnez un modèle</h2>
     <div class="progress-bar">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <a href="?page=creation&step=1"></a>
+        <a href="?page=creation&step=2"></a>
+        <a href="?page=creation&step=3"></a>
+        <a href="?page=creation&step=4"></a>
     </div>
 </div>
 

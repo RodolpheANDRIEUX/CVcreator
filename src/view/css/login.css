@@ -1,5 +1,5 @@
 body {
-    background-color: #231711 !important;
+    background-color: var(--primary-color) !important;
 }
 
 .main {
@@ -11,7 +11,7 @@ body {
 
 .container {
     border-radius: 30px;
-    background-color: #F2E2C2;
+    background-color: var(--tertiary-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,7 +36,7 @@ body {
 .separator {
     width: 1px;
     height: 150px;
-    background-color: #231711;
+    background-color: var(--primary-color);
     margin-top: 30px;
 }
 
@@ -48,7 +48,7 @@ form {
 }
 
 .login-container span {
-    color: #231711;
+    color: var(--primary-color);
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 30px;
@@ -56,11 +56,11 @@ form {
 
 input {
     border: none;
-    border-bottom: 1px solid #231711;
+    border-bottom: 1px solid var(--primary-color);
     outline: none;
     background-color: transparent;
     padding: 10px 0;
-    color: #231711;
+    color: var(--primary-color);
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
@@ -69,8 +69,8 @@ input {
 form button {
     border: none;
     outline: none;
-    background-color: #231711;
-    color: #F2E2C2;
+    background-color: var(--primary-color);
+    color: var(--tertiary-color);
     width: 80%;
     padding: 10px 20px;
     border-radius: 5px;

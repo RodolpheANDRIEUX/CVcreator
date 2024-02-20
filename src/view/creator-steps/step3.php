@@ -14,10 +14,10 @@
 <div class="progress-bar-container">
     <h2>Étape 3 : Choisissez vos couleurs</h2>
     <div class="progress-bar">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <a href="?page=creation&step=1"></a>
+        <a href="?page=creation&step=2"></a>
+        <a href="?page=creation&step=3"></a>
+        <a href="?page=creation&step=4"></a>
     </div>
 </div>
 
@@ -55,3 +55,23 @@
         <button type="submit" class="btn-next">Suivant</button>
     </form>
 </section>
+
+<script>
+    document.querySelectorAll('input[type=radio][name=color]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            const colorsElement = document.getElementById('colors');
+            const color1 = this.parentElement.querySelector('.color1').style.backgroundColor;
+            const color2 = this.parentElement.querySelector('.color2').style.backgroundColor;
+            const color3 = this.parentElement.querySelector('.color3').style.backgroundColor;
+            const color4 = this.parentElement.querySelector('.color4').style.backgroundColor;
+            colorsElement.innerHTML = `
+            :root {
+                --color-1: ${color1};
+                --color-2: ${color2};
+                --color-3: ${color3};
+                --color-4: ${color4};
+            }
+        `;
+        });
+    });
+</script>

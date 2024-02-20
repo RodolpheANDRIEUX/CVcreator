@@ -42,4 +42,12 @@ class UserModel
         $stmt = $db->prepare("DELETE FROM user WHERE id = ?");
         $stmt->execute([$id]);
     }
+
+    public function getUserById($id)
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM user WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
 }

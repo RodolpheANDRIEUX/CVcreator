@@ -39,11 +39,11 @@ $pdf->setOptions([
     'margin-left' => 0,
     'dpi' => 800,
     'zoom' => 1.67,
+    'load-error-handling' => 'ignore',
 ]);
 
 try {
     $pdf->addPage($html);
-    $logger->log("Page added");
 } catch (Exception $e) {
     $logger->log("Error while adding page: " . $e->getMessage());
     die("Error while adding page: " . $e->getMessage());

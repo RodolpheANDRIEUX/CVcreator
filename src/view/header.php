@@ -21,7 +21,7 @@
     </div>
     <div>
         <?php if(isset($_SESSION['username'])): ?>
-            <button type="submit" class="profile-btn"><a href="action.php?action=logout"><?php echo $_SESSION['username']; ?></a></button>
+            <button type="submit" class="profile-btn"><a href="?page=profile"><?php echo $_SESSION['username']; ?></a></button>
         <?php else: ?>
             <button type="submit" class="connexion-btn"><a href="?page=login">Connexion</a></button>
         <?php endif; ?>

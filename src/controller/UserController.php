@@ -36,7 +36,9 @@ class UserController {
         $this->userModel->addUser($username, $email, $password);
     }
 
-    // TODO Méthodes pour la mise à jour et la suppression de user
+    public function getUserById($id) {
+        return $this->userModel->getUserById($id);
+    }
 
     /**
      * @throws Exception if the user does not exist or if the password is incorrect

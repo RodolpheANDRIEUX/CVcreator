@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include 'view/head.php'; ?></head>
+    <?php include 'view/head.php'; ?>
     <link rel="stylesheet" type="text/css" href="view/css/creation.css">
 </head>
 

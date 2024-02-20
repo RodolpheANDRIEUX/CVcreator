@@ -4,7 +4,7 @@ use controller\UserController;
 
 session_start();
 require_once __DIR__ . '/controller/UserController.php';
-require_once __DIR__ . '/logger.php';
+require_once __DIR__ . '/Logger.php';
 
 $userController = new UserController();
 $logger = new Logger();
@@ -19,6 +19,9 @@ try {
             break;
         case 'login':
             include 'view/login_page.php';
+            break;
+        case 'profile':
+            include 'view/profile_page.php';
             break;
         case 'creation':
             if (!isset($_SESSION['username'])) {

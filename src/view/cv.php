@@ -8,15 +8,17 @@ use controller\LanguageController;
 use controller\ProfessionalExperienceController;
 use controller\SkillController;
 use controller\LicenseLinkTableController;
+use controller\ColorController;
 
 if (!isset($_SESSION['cvContent_id'])) {
-    die("CV ID is not set in the session.");
+    die("Validez vos informations pour prévisualiser votre CV.");
 }
 
 require_once __DIR__ . '/../controller/CvController.php';
+require_once __DIR__ . '/../controller/ColorController.php';
 require_once __DIR__ . '/../Logger.php';
 $logger = new Logger();
-
+$colorController = new ColorController();
 $cvController = new CvController();
 $controllers = [
     'cvContent' => CvContentController::class,
@@ -34,6 +36,15 @@ if (isset($_SESSION['cv_id'])) {
     } catch (Exception $e) {
         $logger->log("Error while getting cv: " . $e->getMessage());
         die("Error while getting cv: " . $e->getMessage());
+    }
+}
+
+if (isset($_SESSION['color_id'])) {
+    try {
+        $color = $colorController->getColorById($_SESSION['color_id'])[0];
+    } catch (Exception $e) {
+        $logger->log("Error while getting color: " . $e->getMessage());
+        die("Error while getting color: " . $e->getMessage());
     }
 }
 
@@ -62,8 +73,23 @@ $cvContent = $cvContent[0];
 <html>
 <head>
     <meta charset="UTF-8">
+    <style id="colors">
+        <?php
+        if (isset($_SESSION['color_id'])):
+            echo '
+                :root {
+                    --color-1: ' . $color['color1'] . ';
+                    --color-2: ' . $color['color2'] . ';
+                    --color-3: ' . $color['color3'] . ';
+                    --color-4: ' . $color['color4'] . ';
+                }
+                ';
+        endif;
+        ?>
+    </style>
     <style>
         <?php
+
          echo file_get_contents(__DIR__ . '/css/style.css');
          if (isset($_SESSION['css_file'])):
              echo file_get_contents(__DIR__ . '/templates/' . $_SESSION['css_file']);
@@ -72,57 +98,69 @@ $cvContent = $cvContent[0];
     </style>
 </head>
 
-<div id="cv-body">
-    <h2><?php echo htmlspecialchars(($cvContent['first_name'] ?? '') . ' ' . ($cvContent['last_name'] ?? '')); ?></h2>
-    <h1><?php echo htmlspecialchars($cv['title'] ?? ''); ?></h1>
+<div id="cv-body" style="height: 100%; width: 100%; word-break: break-word;">
+    <section id="informations">
+        <?php
+        // im doing some serious hacking stuff here
+        $imagePath = __DIR__ . '/../../uploads/' . $cvContent['profile_pic'];
+        $imageData = file_get_contents($imagePath);
+        $base64 = base64_encode($imageData);
+        $dataUrl = 'data:image/png;base64,' . $base64;
+        echo '<img src="' . $dataUrl . '" alt="Profile picture" style="max-height: 200px; max-width: 175px;">';
+        ?>
 
-    <?php if ($cvContent['profile_pic'] != null): ?>
-        <img src="<?php echo '../uploads/' . $cvContent['profile_pic']; ?>" alt="Profile picture">
-    <?php endif; ?>
+        <p>Email: <?php echo htmlspecialchars($cvContent['email'] ?? ''); ?></p>
+        <p>Address: <?php echo htmlspecialchars($cvContent['address'] ?? ''); ?></p>
+        <p>Phone: <?php echo htmlspecialchars($cvContent['phone'] ?? ''); ?></p>
 
-    <p>Email: <?php echo htmlspecialchars($cvContent['email'] ?? ''); ?></p>
-    <p>Address: <?php echo htmlspecialchars($cvContent['address'] ?? ''); ?></p>
-    <p>Phone: <?php echo htmlspecialchars($cvContent['phone'] ?? ''); ?></p>
+    </section>
 
-    <?php
-    $sections = [];
+    <section id="content">
+        <h2 class="name"><?php echo htmlspecialchars(($cvContent['first_name'] ?? '') . ' ' . ($cvContent['last_name'] ?? '')); ?></h2>
 
-    if (isset($professionalExperiences)) {
-        $sections['Experiences'] = $professionalExperiences;
-    }
+        <?php
+        $sections = [];
 
-    if (isset($skills)) {
-        $sections['Competences'] = $skills;
-    }
+        if (isset($professionalExperiences)) {
+            $sections['Experiences'] = $professionalExperiences;
+        }
 
-    if (isset($languages)) {
-        $sections['Langues'] = $languages;
-    }
+        if (isset($skills)) {
+            $sections['Competences'] = $skills;
+        }
 
-    if (isset($educations)) {
-        $sections['Formations'] = $educations;
-    }
+        if (isset($languages)) {
+            $sections['Langues'] = $languages;
+        }
 
-    if (isset($interests)) {
-        $sections['Interets'] = $interests;
-    }
+        if (isset($educations)) {
+            $sections['Formations'] = $educations;
+        }
 
-    if (isset($licenseLinkTable)) {
-        $sections['Permis'] = $licenseLinkTable;
-    }
+        if (isset($interests)) {
+            $sections['Interets'] = $interests;
+        }
 
-    foreach ($sections as $sectionName => $sectionData):
-        if ($sectionData != null): ?>
-            <h2><?php echo $sectionName; ?></h2>
-            <ul>
-                <?php foreach ($sectionData as $item): ?>
-                    <li>
-                        <h3 class="<?php echo strtolower(str_replace(' ', '', $sectionName)); ?> Title"><?php echo htmlspecialchars($item['title'] ?? ''); ?></h3>
-                        <p class="<?php echo strtolower(str_replace(' ', '', $sectionName)); ?> Description"><?php echo htmlspecialchars($item['description'] ?? ''); ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif;
-    endforeach; ?>
+        if (isset($licenseLinkTable)) {
+            $sections['Permis'] = $licenseLinkTable;
+        }
+
+        foreach ($sections as $sectionName => $sectionData):
+            if ($sectionData != null): ?>
+                <div class="section">
+                    <h2><?php echo $sectionName; ?></h2>
+                    <div class="section-element">
+                        <?php foreach ($sectionData as $item): ?>
+                            <div class="section-element-content">
+                                <h3 class="<?php echo strtolower(str_replace(' ', '', $sectionName)); ?> Title"><?php echo htmlspecialchars($item['title'] ?? ''); ?></h3>
+                                <p class="<?php echo strtolower(str_replace(' ', '', $sectionName)); ?> Description"><?php echo htmlspecialchars($item['description'] ?? ''); ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif;
+        endforeach; ?>
+    </section>
+
 </div>
 </html>

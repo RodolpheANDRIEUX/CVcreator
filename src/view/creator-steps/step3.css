@@ -4,7 +4,7 @@
 }
 
 .progress-bar-container h2 {
-    color: #231711;
+    color: var(--primary-color);
     font-size: 30px;
     margin-bottom: 30px;
     font-weight: 600;
@@ -17,7 +17,7 @@
     background-color: #816642;
 }
 
-.progress-bar span {
+.progress-bar a {
     position: absolute;
     top: -5px;
     height: 10px;
@@ -26,24 +26,23 @@
     background-color: #816642;
 }
 
-.progress-bar span:nth-child(1) {
+.progress-bar a:nth-child(1) {
     left: -5px;
 }
 
-.progress-bar span:nth-child(2) {
+.progress-bar a:nth-child(2) {
     left: 33.3%;
 }
 
-.progress-bar span:nth-child(3) {
+.progress-bar a:nth-child(3) {
     left: 66.7%;
-    background-color: #231711;
+    background-color: var(--primary-color);
     transform: scale(1.2);
 }
 
-.progress-bar span:nth-child(4) {
+.progress-bar a:nth-child(4) {
     right: -5px;
 }
-
 
 #step3 form {
     display: flex;
@@ -56,8 +55,8 @@
 #step3 form button[type="submit"] {
     border: none;
     outline: none;
-    background-color: #231711;
-    color: #F2E2C2;
+    background-color: var(--primary-color);
+    color: var(--tertiary-color);
     width: 150px;
     padding: 10px 20px;
     border-radius: 5px;
@@ -78,22 +77,22 @@
 #step3 .card {
     position: relative;
     font-family: 'Roboto', sans-serif;
-    background-color: #F2E2C2;
+    background-color: var(--tertiary-color);
     text-align: center;
     cursor: pointer;
-    box-shadow: #231711 0 0 5px 0;
+    box-shadow: var(--primary-color) 0 0 5px 0;
     transition: transform 0.3s ease-out;
 }
 
 #step3 .card:hover {
     transform: translate(0, -5px);
-    box-shadow: #231711 0 0 6px 0;
+    box-shadow: var(--primary-color) 0 0 6px 0;
 }
 
 #step3 .card:active {
     transition: 0s;
     transform: translate(0, 5px) scale(.98);
-    box-shadow: #231711 0 0 2px 0;
+    box-shadow: var(--primary-color) 0 0 2px 0;
 }
 
 #step3 .card input[type="radio"]:checked ~ .checked {
