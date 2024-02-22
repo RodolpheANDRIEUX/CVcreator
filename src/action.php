@@ -129,6 +129,17 @@ switch ($action) {
         redirect('home');
         exit();
 
+    case 'share':
+        $_SESSION['cv_id'] = $_GET['id'];
+        $logger->log("accessing CV " . $_SESSION['cv_id']);
+        try {
+            $_SESSION['cvContent_id'] = $cvContentController->getCvContentByCvId($_SESSION['cv_id'])[0]['id'];
+        } catch (Exception $e) {
+            $logger->log("Error: " . $e->getMessage());
+        }
+        redirect('share');
+        break;
+
     default:
         $logger->log( ($_SESSION['username'] ?? 'Guest') . " called action $action with no effect /!\/!\/!\\");
         break;

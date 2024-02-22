@@ -30,6 +30,9 @@ try {
             }
             include 'view/creation_page.php';
             break;
+        case 'share':
+            include 'view/share.php';
+            break;
         case 'error':
             include 'view/error_page.php';
             break;

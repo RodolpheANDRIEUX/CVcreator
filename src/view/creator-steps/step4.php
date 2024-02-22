@@ -25,7 +25,7 @@
 
     <div class="share-container">
         <label for="share-link"><h3>Lien de partage</h3></label>
-        <textarea id="share-link" readonly>http://localhost:8080/cv/1</textarea>
+        <textarea id="share-link" readonly>http://localhost/CVcreator/src/action.php?action=share&id=<?php echo $_SESSION['cv_id'] ?></textarea>
         <a class="copy" id="copy1"><img src="view/assets/copy.svg" alt="copy"></a>
     </div>
 

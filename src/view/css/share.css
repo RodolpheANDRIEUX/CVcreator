@@ -1,0 +1,9 @@
+.shared-cv-container {
+    height: 100vh;
+    aspect-ratio: 210 / 297; /* A4 aspect ratio */
+    margin: auto;
+}
+
+body {
+    background-color: #1E1E1E !important;
+}

@@ -19,10 +19,10 @@ try {
             'useExec' => true,
             'escapeArgs' => false,
             'procEnv' => [
-                'PATH' => 'C:\Program Files\wkhtmltopdf\bin',
+                'PATH' => WKPATH,
             ],
         ],
-        'binary' => 'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe',
+        'binary' => WKPATH . '\wkhtmltopdf.exe',
     ]);
 } catch (Exception $e) {
     $logger->log("Error while creating pdf: " . $e->getMessage());
